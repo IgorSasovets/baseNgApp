@@ -23,6 +23,15 @@ exports.config = {
     require('ts-node').register({
       project: require('path').join(__dirname, './tsconfig.e2e.json')
     });
+    browser.manage().window().setSize(1920, 1080);
+    const protractorImageComparison = require('protractor-image-comparison');
+    browser.protractorImageComparison = new protractorImageComparison(
+      {
+          baselineFolder: './baseline',
+          screenshotPath: './screens',
+          autoSaveBaseline: true
+      }
+    );
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
   }
 };
