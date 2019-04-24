@@ -13,8 +13,8 @@ describe('workspace-project App', () => {
   });
 
   it('should check base page screenshot', () => {
-  	return browser.protractorImageComparison.saveScreen('basePageScreen')
-  		.then(() => browser.protractorImageComparison.checkScreen('basePageScreen', {saveAboveTolerance: 0}))
+  	return browser.imageComparison.saveScreen('basePageScreen')
+  		.then(() => browser.imageComparison.checkScreen('basePageScreen', {saveAboveTolerance: 0}))
   		.then(mismatchPercentage => {
   			console.log('MISMATCH:' + mismatchPercentage);
   			expect(mismatchPercentage).not.toBeGreaterThan(0);
