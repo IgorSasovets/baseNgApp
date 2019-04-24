@@ -19,19 +19,21 @@ exports.config = {
     defaultTimeoutInterval: 30000,
     print: function() {}
   },
+  plugins: [
+    {
+      package: 'protractor-image-comparison',
+      options: {
+          baselineFolder: require('path').join(__dirname, './baseline'),
+          screenshotPath: require('path').join(__dirname, './screens'),
+          autoSaveBaseline: true
+      }
+    }
+  ],
   onPrepare() {
     require('ts-node').register({
       project: require('path').join(__dirname, './tsconfig.e2e.json')
     });
     browser.manage().window().setSize(1920, 1080);
-    const protractorImageComparison = require('protractor-image-comparison');
-    browser.protractorImageComparison = new protractorImageComparison(
-      {
-          baselineFolder: './baseline',
-          screenshotPath: './screens',
-          autoSaveBaseline: true
-      }
-    );
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
   }
 };
