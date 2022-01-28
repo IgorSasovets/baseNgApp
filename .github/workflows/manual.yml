@@ -19,7 +19,7 @@ jobs:
    steps:
      - uses: actions/checkout@v2
        with:
-          ref: ${{ INPUT_BRANCH }}
+          ref: ${{ env.INPUT_BRANCH }}
      - name: Use Node.js ${{ matrix.node-version }}
        uses: actions/setup-node@v2
        with:
