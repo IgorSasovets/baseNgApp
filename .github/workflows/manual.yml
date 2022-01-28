@@ -1,0 +1,37 @@
+name: Manual trigerring of Snyk scan
+on: 
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch name'     
+        required: true
+        default: 'master' 
+        type: choice
+        options:
+        - develop
+        - master 
+jobs:
+ build:
+   runs-on: ubuntu-latest
+   strategy:
+      matrix:
+        node-version: [12.x]
+   steps:
+     - uses: actions/checkout@v2
+       with:
+          ref: ${{ INPUT_BRANCH }}
+     - name: Use Node.js ${{ matrix.node-version }}
+       uses: actions/setup-node@v2
+       with:
+         node-version: ${{ matrix.node-version }}
+     - run: npm i
+     - name: Snyk Test
+       uses: snyk/actions/setup@master
+     - run: snyk test --sarif-file-output=snyk-sarif.json
+       continue-on-error: true       
+       env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}    
+     - name: Upload SARIF file
+       uses: github/codeql-action/upload-sarif@v1
+       with:
+         sarif_file: snyk-sarif.json
