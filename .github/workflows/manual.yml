@@ -27,14 +27,4 @@ jobs:
      - run: |
          git status
          echo "${{ github.event.inputs.branch }}"
-     #- run: npm i
-     #- name: Snyk Test
-     #  uses: snyk/actions/setup@master
-     #- run: snyk test --sarif-file-output=snyk-sarif.json
-     #  continue-on-error: true       
-     #  env:
-     #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}    
-     #- name: Upload SARIF file
-     #  uses: github/codeql-action/upload-sarif@v1
-     #  with:
-     #    sarif_file: snyk-sarif.json
+         aws help
